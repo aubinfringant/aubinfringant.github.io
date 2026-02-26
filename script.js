@@ -79,3 +79,37 @@ function openModal() {
 function closeModal() {
     document.getElementById("modal").style.display = "none";
 }
+fetch("https://api.github.com/users/aubinfringant/repos")
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("github-projects");
+
+    data.slice(0, 6).forEach(repo => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      card.innerHTML = `
+        <h3>${repo.name}</h3>
+        <p>${repo.description ? repo.description : "Projet personnel"}</p>
+        <a href="${repo.html_url}" target="_blank">Voir sur GitHub</a>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+window.addEventListener("scroll", () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (scrollTop / height) * 100;
+  document.getElementById("progress-bar").style.width = scrolled + "%";
+});
+window.addEventListener("load", () => {
+  document.getElementById("loader").style.display = "none";
+});
+document.getElementById("contact-form")
+  .addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    emailjs.sendForm("TON_SERVICE_ID", "TON_TEMPLATE_ID", this)
+      .then(() => alert("Message envoyé avec succès !"));
+});
