@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta name="description" content="Portfolio de Aubin Fringant, étudiant BTS SIO SLAM, développeur web spécialisé en applications PHP et JavaScript.">
+    <meta name="author" content="Aubin Fringant">
+    <link rel="icon" href="favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+        <script>
+        (function(){
+        emailjs.init("TON_PUBLIC_KEY");
+        })();
+    </script>
     <meta charset="UTF-8">
     <title>Aubin Fringant - Portfolio BTS SIO SLAM</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<div id="progress-bar"></div>
     <header>
         <nav>
             <h2 class="logo">Aubin<span>.</span></h2>
@@ -65,6 +77,10 @@
             </div>
         </div>
     </section>
+    <section id="projects" class="section hidden">
+      <h2>Mes Projets</h2>
+      <div id="github-projects" class="cards"></div>
+    </section>
 
     <section id="skills" class="section hidden">
         <canvas id="skillsChart" width="400" height="200"></canvas>
@@ -86,7 +102,18 @@
         </div>
 
     </section>
-
+    
+    <section class="section hidden">
+      <h2>Compétences Professionnelles</h2>
+      <ul>
+        <li>Travail en méthodologie Agile</li>
+        <li>Gestion de projet (Trello / Git)</li>
+        <li>Conception base de données (MCD / MPD)</li>
+        <li>Développement MVC</li>
+        <li>Sécurisation des applications web</li>
+      </ul>
+    </section>
+    
     <section id="contact" class="section hidden">
         <h2>Contact</h2>
         <p>Email : tonmail@email.com</p>
@@ -104,10 +131,7 @@
         comme React et les évolutions en cybersécurité.
       </p>
     </section>
-    <footer>
-        <p>© 2026 Aubin Fringant - Portfolio BTS SIO SLAM</p>
-    </footer>
-
+    
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <script>
@@ -121,6 +145,16 @@
     });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Nom" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Message" required></textarea>
+      <button type="submit" class="btn">Envoyer</button>
+    </form>
+    
+    <footer>
+        <p>© 2026 Aubin Fringant - Portfolio BTS SIO SLAM</p>
+    </footer>
 </body>
     <div id="particles-js"></div>
 </html>
