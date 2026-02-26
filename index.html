@@ -10,12 +10,17 @@
     <header>
         <nav>
             <h2 class="logo">Aubin<span>.</span></h2>
-            <ul>
+            <div class="burger" onclick="toggleMenu()">
+                ☰
+            </div>
+
+            <ul id="menu">
                 <li><a href="#about">À propos</a></li>
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#skills">Compétences</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="toggle" onclick="toggleTheme()">🌙</div>
         </nav>
 
         <div class="hero">
@@ -37,35 +42,52 @@
         <h2>Mes Projets</h2>
         <div class="cards">
             <div class="card">
-                <h3>Projet 1</h3>
-                <p>Application web en PHP / MySQL.</p>
+                <h3>Application de gestion</h3>
+                <p>Développement d'une application PHP/MySQL avec authentification sécurisée.</p>
+                <p><strong>Technologies :</strong> PHP, MySQL, Bootstrap</p>
             </div>
             <div class="card">
-                <h3>Projet 2</h3>
-                <p>Site responsive en HTML / CSS.</p>
+                <h3>Application de gestion</h3>
+                <p>Développement d'une application PHP/MySQL avec authentification sécurisée.</p>
+                <p><strong>Technologies :</strong> PHP, MySQL, Bootstrap</p>
+            </div>
+            <div class="card">
+                <h3>Application de gestion</h3>
+                <p>Développement d'une application PHP/MySQL avec authentification sécurisée.</p>
+                <p><strong>Technologies :</strong> PHP, MySQL, Bootstrap</p>
             </div>
         </div>
     </section>
 
     <section id="skills" class="section hidden">
         <h2>Compétences</h2>
-        <div class="skills">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-            <span>PHP</span>
-            <span>SQL</span>
+    
+        <div class="skill">
+            <p>HTML</p>
+            <div class="progress"><div class="progress-bar" style="width: 90%"></div></div>
         </div>
+    
+        <div class="skill">
+            <p>CSS</p>
+            <div class="progress"><div class="progress-bar" style="width: 85%"></div></div>
+        </div>
+    
+        <div class="skill">
+            <p>JavaScript</p>
+            <div class="progress"><div class="progress-bar" style="width: 75%"></div></div>
+        </div>
+
     </section>
 
     <section id="contact" class="section hidden">
-    <h2>Contact</h2>
-    <p>Email : tonmail@email.com</p>
-
-    <div class="socials">
-        <a href="https://github.com/aubinfringant" target="_blank">GitHub</a>
-        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-    </div>
+        <h2>Contact</h2>
+        <p>Email : tonmail@email.com</p>
+    
+        <div class="socials">
+            <a href="https://github.com/aubinfringant" target="_blank">GitHub</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+        <a href="cv.pdf" class="btn" download>Télécharger mon CV</a>
     </section>
 
     <footer>
