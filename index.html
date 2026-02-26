@@ -56,10 +56,18 @@
                 <p>Développement d'une application PHP/MySQL avec authentification sécurisée.</p>
                 <p><strong>Technologies :</strong> PHP, MySQL, Bootstrap</p>
             </div>
+            <div id="modal" class="modal">
+              <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3>Application de gestion</h3>
+                <p>Détails techniques : MVC, authentification, CRUD complet...</p>
+              </div>
+            </div>
         </div>
     </section>
 
     <section id="skills" class="section hidden">
+        <canvas id="skillsChart" width="400" height="200"></canvas>
         <h2>Compétences</h2>
     
         <div class="skill">
@@ -89,11 +97,30 @@
         </div>
         <a href="cv.pdf" class="btn" download>Télécharger mon CV</a>
     </section>
-
+    <section class="section hidden">
+      <h2>Veille Technologique</h2>
+      <p>
+        Je réalise une veille technologique sur les frameworks JavaScript modernes
+        comme React et les évolutions en cybersécurité.
+      </p>
+    </section>
     <footer>
         <p>© 2026 Aubin Fringant - Portfolio BTS SIO SLAM</p>
     </footer>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        size: { value: 3 },
+        move: { speed: 1 },
+        line_linked: { enable: true }
+      }
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
+    <div id="particles-js"></div>
 </html>
