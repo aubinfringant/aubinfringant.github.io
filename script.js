@@ -25,3 +25,20 @@ const observer = new IntersectionObserver(entries => {
 });
 
 hiddenElements.forEach(el => observer.observe(el));
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("active");
+}
+const bars = document.querySelectorAll('.progress-bar');
+
+const skillObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.width = entry.target.getAttribute("style").replace("width:", "");
+        }
+    });
+});
+
+bars.forEach(bar => skillObserver.observe(bar));
