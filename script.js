@@ -42,3 +42,40 @@ const skillObserver = new IntersectionObserver(entries => {
 });
 
 bars.forEach(bar => skillObserver.observe(bar));
+const ctx = document.getElementById('skillsChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['HTML', 'CSS', 'JS', 'PHP', 'SQL'],
+        datasets: [{
+            label: 'Niveau (%)',
+            data: [90, 85, 75, 80, 70],
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: "white"
+                }
+            }
+        },
+        scales: {
+            y: {
+                ticks: { color: "white" }
+            },
+            x: {
+                ticks: { color: "white" }
+            }
+        }
+    }
+});
+function openModal() {
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
