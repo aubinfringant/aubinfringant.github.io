@@ -161,3 +161,67 @@ footer {
 .socials a:hover {
     color: white;
 }
+.toggle {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* LIGHT MODE */
+body.light {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+body.light nav {
+    background: rgba(255,255,255,0.8);
+}
+
+body.light .card {
+    background: rgba(255,255,255,0.6);
+    color: #0f172a;
+}
+.burger {
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    .burger {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: #1e293b;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+}
+.skill {
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: left;
+}
+
+.progress {
+    background: #1e293b;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #38bdf8;
+    width: 0;
+    transition: width 2s ease;
+}
