@@ -103,9 +103,6 @@ window.addEventListener("scroll", () => {
   const scrolled = (scrollTop / height) * 100;
   document.getElementById("progress-bar").style.width = scrolled + "%";
 });
-window.addEventListener("load", () => {
-  document.getElementById("loader").style.display = "none";
-});
 document.getElementById("contact-form")
   .addEventListener("submit", function(event) {
     event.preventDefault();
