@@ -278,33 +278,68 @@ body.light .card {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+/* ===== FORMULAIRE CONTACT ===== */
+
 .contact-form {
-  max-width: 500px;
-  margin: auto;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-input,
-.form-textarea {
+.form-group input,
+.form-group textarea {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fafafa;
   font-size: 15px;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  font-family: inherit;
 }
 
-.form-input:focus,
-.form-textarea:focus {
-  border-color: #6c63ff;
-  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+/* focus moderne */
+.form-group input:focus,
+.form-group textarea:focus {
   outline: none;
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-.form-textarea {
-  min-height: 120px;
+/* textarea resize propre */
+.form-group textarea {
   resize: vertical;
+  min-height: 120px;
+}
+
+/* bouton premium */
+.btn {
+  padding: 14px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* mobile */
+@media (max-width: 480px) {
+  .contact-form {
+    gap: 14px;
+  }
 }
