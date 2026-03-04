@@ -278,3 +278,33 @@ body.light .card {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+.contact-form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+  outline: none;
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
