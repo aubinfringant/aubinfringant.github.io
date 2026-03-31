@@ -1,6 +1,658 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compteurs Linky : anatomie d'une théorie du complot — Le Journal</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Palette & Variables ─────────────────────────────── */
+    :root {
+      --black:      #1a1a1a;
+      --dark-gray:  #333333;
+      --mid-gray:   #666666;
+      --light-gray: #9e9e9e;
+      --border:     #d6d6d6;
+      --bg:         #fafaf8;
+      --white:      #ffffff;
+      --accent:     #0e4d92;   /* bleu journal */
+      --accent-alt: #b5121b;   /* rouge rubrique */
+      --yellow:     #f5e642;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+
+    /* ─── Top Bar ─────────────────────────────────────────── */
+    .topbar {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 24px;
+    }
+    .topbar a { color: #ccc; }
+    .topbar a:hover { color: var(--white); }
+
+    /* ─── Header / Masthead ───────────────────────────────── */
+    header {
+      border-bottom: 3px solid var(--black);
+      padding: 16px 24px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .masthead-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--mid-gray);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900;
+      letter-spacing: -.02em;
+      color: var(--black);
+      text-align: center;
+    }
+    .logo span { color: var(--accent-alt); }
+    .tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+    }
+
+    /* ─── Nav ─────────────────────────────────────────────── */
+    nav {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    .nav-inner {
+      display: flex;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav-inner a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--dark-gray);
+      padding: 11px 14px;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .nav-inner a:hover { color: var(--accent); border-color: var(--accent); }
+    .nav-inner a.active { color: var(--accent); border-color: var(--accent); }
+
+    /* ─── Main Layout ─────────────────────────────────────── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    /* ─── Breadcrumb / Category ───────────────────────────── */
+    .category {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent-alt);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .category::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--accent-alt);
+    }
+
+    /* ─── Article Title ───────────────────────────────────── */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 4vw, 42px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+    h1 em { font-style: italic; color: var(--dark-gray); }
+
+    /* ─── Chapeau (lead) ──────────────────────────────────── */
+    .lead {
+      font-family: 'Source Serif 4', serif;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--dark-gray);
+      border-left: 4px solid var(--accent);
+      padding-left: 18px;
+      margin-bottom: 28px;
+    }
+
+    /* ─── Meta ────────────────────────────────────────────── */
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      color: var(--mid-gray);
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .meta strong { color: var(--dark-gray); font-weight: 600; }
+    .meta-time { margin-left: auto; }
+
+    /* ─── Actions ─────────────────────────────────────────── */
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border: 1.5px solid var(--black);
+      cursor: pointer;
+      background: transparent;
+      color: var(--black);
+      transition: background .15s, color .15s;
+    }
+    .btn:hover { background: var(--black); color: var(--white); }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+    .btn-primary:hover { background: #0a3a6e; border-color: #0a3a6e; }
+
+    /* ─── Hero Image ──────────────────────────────────────── */
+    .hero {
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      background: #c8c8c0;
+    }
+    .hero img { object-fit: cover; width: 100%; height: 100%; }
+    .hero-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #c8c4b8 0%, #8a8070 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      gap: 8px;
+      opacity: .8;
+    }
+    .hero-placeholder svg { width: 40px; opacity: .6; }
+    .caption {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      color: var(--light-gray);
+      line-height: 1.4;
+      margin-bottom: 32px;
+    }
+    .caption strong { color: var(--mid-gray); }
+
+    /* ─── Article Body ────────────────────────────────────── */
+    .article-body p {
+      margin-bottom: 22px;
+      color: var(--dark-gray);
+    }
+    .article-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      font-weight: 900;
+      float: left;
+      line-height: .82;
+      margin: 4px 10px 0 0;
+      color: var(--black);
+    }
+
+    /* ─── Pull Quote ──────────────────────────────────────── */
+    blockquote {
+      border-top: 3px solid var(--black);
+      border-bottom: 1px solid var(--border);
+      padding: 22px 0 20px;
+      margin: 36px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--black);
+    }
+    blockquote cite {
+      display: block;
+      margin-top: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--light-gray);
+    }
+
+    /* ─── Subheadings ─────────────────────────────────────── */
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 40px 0 18px;
+      color: var(--black);
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── Fact Box ────────────────────────────────────────── */
+    .fact-box {
+      background: #f0ede6;
+      border-left: 5px solid var(--accent);
+      padding: 22px 26px;
+      margin: 36px 0;
+      font-size: 16px;
+    }
+    .fact-box .fact-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .fact-box ul { padding-left: 20px; }
+    .fact-box li { margin-bottom: 8px; color: var(--dark-gray); }
+
+    /* ─── Tags ────────────────────────────────────────────── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 40px 0 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      color: var(--mid-gray);
+      transition: border-color .15s, color .15s;
+      cursor: pointer;
+    }
+    .tag:hover { border-color: var(--dark-gray); color: var(--black); }
+
+    /* ─── Author Card ─────────────────────────────────────── */
+    .author-card {
+      display: flex;
+      gap: 18px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .author-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6a9fd8);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .author-info { flex: 1; }
+    .author-info strong {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .author-info p {
+      font-size: 14px;
+      color: var(--mid-gray);
+      margin: 0;
+    }
+    .author-info p::first-letter { /* override dropcap */ font-size: inherit; float: none; margin: 0; }
+
+    /* ─── Related Articles ────────────────────────────────── */
+    .related {
+      border-top: 3px solid var(--black);
+      padding-top: 24px;
+      margin-top: 16px;
+    }
+    .related-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 20px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .related-card { cursor: pointer; }
+    .related-thumb {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #d4cfca 0%, #9a9085 100%);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .related-card:hover .related-thumb { opacity: .85; }
+    .related-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-alt);
+      margin-bottom: 5px;
+    }
+    .related-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--black);
+    }
+    .related-card:hover h3 { text-decoration: underline; }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      color: #aaa;
+      padding: 40px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      text-align: center;
+    }
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    footer a { color: #888; }
+    footer a:hover { color: var(--white); }
+
+    /* ─── Utility ─────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .masthead-top { display: none; }
+      .actions { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <span>Mardi 31 mars 2026</span>
+    <div style="display:flex;gap:18px;">
+      <a href="#">Se connecter</a>
+      <a href="#">S'abonner</a>
+      <a href="#">Newsletters</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="masthead-top">
+      <span>Édition internationale</span>
+      <span>☀ 14 °C · Nancy</span>
+    </div>
+    <div class="logo">Le<span>.</span>Journal</div>
+    <div class="tagline">L'information en profondeur depuis 1945</div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#">Accueil</a>
+      <a href="#" class="active">Économie</a>
+      <a href="#">Politique</a>
+      <a href="#">Monde</a>
+      <a href="#">Environnement</a>
+      <a href="#">Culture</a>
+      <a href="#">Science</a>
+      <a href="#">Sport</a>
+      <a href="#">Opinion</a>
+    </div>
+  </nav>
+
+  <!-- Main Article -->
+  <main>
+
+    <!-- Category -->
+    <div class="category">Société · Désinformation</div>
+
+    <!-- Title -->
+    <h1>Compteurs Linky : anatomie d'une théorie du complot <em>bien ancrée dans les foyers français</em></h1>
+
+    <!-- Lead -->
+    <p class="lead">
+      Depuis leur déploiement massif à partir de 2015, les compteurs communicants Linky font l'objet de nombreuses rumeurs sur internet : espionnage, ondes dangereuses, coupures à distance… Comment ces théories sont-elles nées, qui les relaie, et que répondent les scientifiques ?
+    </p>
+
+    <!-- Meta -->
+    <div class="meta">
+      <span>Par <strong>Clara Fontaine</strong> et <strong>Rémi Dubois</strong></span>
+      <span>Publié le <strong>31 mars 2026</strong></span>
+      <span class="meta-time">Lecture : 7 min</span>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary">📩 S'abonner</button>
+      <button class="btn">Partager</button>
+      <button class="btn">Imprimer</button>
+      <button class="btn">Écouter</button>
+    </div>
+
+    <!-- Hero Image -->
+    <figure>
+      <div class="hero">
+        <div class="hero-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>Insérer votre image ici</span>
+          <span style="font-size:10px;opacity:.7;">Remplacez ce bloc par une balise &lt;img&gt;</span>
+        </div>
+      </div>
+      <figcaption class="caption">
+        <strong>Illustration :</strong> Un compteur Linky installé dans une cage d'escalier. Ces appareils équipent aujourd'hui plus de 35 millions de foyers français. (Image à remplacer — crédit à compléter)
+      </figcaption>
+    </figure>
+
+    <!-- Body -->
+    <div class="article-body">
+
+      <p>
+        Il suffit de taper « Linky danger » dans un moteur de recherche pour se retrouver submergé par des milliers de résultats alarmistes. Forums militants, vidéos YouTube, groupes Facebook : la théorie du complot autour du compteur communicant d'Enedis prospère depuis une dizaine d'années sur les réseaux sociaux, bien loin des conclusions des autorités sanitaires. Pour comprendre ce phénomène, il faut revenir aux origines du déploiement de cet appareil et aux mécanismes qui ont permis à ces croyances de s'installer durablement.
+      </p>
+
+      <p>
+        Le compteur Linky est un compteur électrique communicant, déployé à grande échelle en France depuis 2015 dans le cadre d'une directive européenne visant à moderniser les réseaux d'énergie. Il transmet les données de consommation à Enedis via le réseau électrique lui-même (courants porteurs en ligne, ou CPL), sans nécessiter de connexion Wi-Fi. Pourtant, c'est précisément cette technologie invisible et mal connue du grand public qui va alimenter les premières rumeurs.
+      </p>
+
+      <!-- Pull Quote -->
+      <blockquote>
+        « Les théories du complot prospèrent là où la confiance dans les institutions est faible et l'information technique, absente. »
+        <cite>— Professeure Isabelle Maret, sociologue des médias, université de Lyon</cite>
+      </blockquote>
+
+      <h2>Les principales allégations : que disent les complotistes ?</h2>
+
+      <p>
+        Les accusations sont multiples et se renforcent mutuellement au fil des partages. La première, et sans doute la plus répandue, concerne la <strong>santé</strong> : des milliers d'internautes affirment souffrir d'électrohypersensibilité (EHS) depuis l'installation de leur compteur, attribuant maux de tête, insomnies et palpitations aux ondes émises par l'appareil. La deuxième allégation porte sur la <strong>surveillance</strong> : Linky enregistrerait en temps réel les habitudes de vie des ménages (heures de lever, absences, appareils utilisés) et transmettrait ces données à l'État, voire à des entreprises privées. Enfin, certains évoquent la possibilité de <strong>coupures à distance</strong> orchestrées pour contrôler la population en cas de crise ou de mouvement social.
+      </p>
+
+      <p>
+        Ces récits circulent notamment au sein de mouvements antivaccins, de collectifs « anti-5G » et de partisans de la décroissance technologique, qui y voient la confirmation d'un système de contrôle global. Des pétitions ont rassemblé plusieurs centaines de milliers de signatures, et certains maires de communes rurales ont tenté — sans succès juridique — d'interdire l'installation des appareils sur leur territoire.
+      </p>
+
+      <!-- Fact Box -->
+      <div class="fact-box">
+        <div class="fact-title">🔍 Ce que dit la science</div>
+        <ul>
+          <li><strong>Ondes :</strong> Le Linky n'émet pas de Wi-Fi. Les CPL génèrent des champs électromagnétiques très inférieurs aux seuils fixés par l'ICNIRP et l'OMS.</li>
+          <li><strong>EHS :</strong> L'Agence nationale de sécurité sanitaire (Anses) a conclu en 2023 que l'électrohypersensibilité n'est pas corrélée à une exposition mesurable aux champs électromagnétiques.</li>
+          <li><strong>Données :</strong> La CNIL encadre strictement la collecte : seules les données de consommation agrégées sont transmises, pas les usages détaillés en temps réel sans accord.</li>
+          <li><strong>Coupures :</strong> La fonction de coupure à distance existe, mais est soumise au droit commun (impayés, résiliation) — identique aux compteurs classiques.</li>
+        </ul>
+      </div>
+
+      <h2>Pourquoi ces théories trouvent-elles un écho si large ?</h2>
+
+      <p>
+        Les chercheurs en sciences sociales pointent plusieurs facteurs. D'abord, le déploiement de Linky s'est fait de manière largement imposée, sans véritable campagne de pédagogie grand public : les ménages ont reçu un courrier d'Enedis, puis un technicien est venu changer le compteur, souvent sans explication approfondie. Ce manque de transparence perçu a nourri le sentiment d'une décision « venue d'en haut ». Ensuite, la crise de confiance envers les institutions — Enedis, État, experts — qui a marqué la France des années 2010 et 2020 a constitué un terreau fertile pour tout discours alternatif.
+      </p>
+
+      <p>
+        Les algorithmes des plateformes sociales ont fait le reste : en favorisant les contenus qui suscitent de l'émotion et de l'indignation, ils ont amplifié les témoignages alarmistes bien au-delà de leur audience naturelle. Une vidéo affirmant que Linky « grille les neurones » peut atteindre des millions de vues là où un rapport de l'Anses sera lu par quelques milliers de spécialistes.
+      </p>
+
+    </div><!-- /article-body -->
+
+    <!-- Tags -->
+    <div class="tags">
+      <span class="tag">Linky</span>
+      <span class="tag">Théorie du complot</span>
+      <span class="tag">Désinformation</span>
+      <span class="tag">Ondes électromagnétiques</span>
+      <span class="tag">Enedis</span>
+      <span class="tag">Fact-checking</span>
+    </div>
+
+    <!-- Author Card -->
+    <div class="author-card">
+      <div class="author-avatar">CF</div>
+      <div class="author-info">
+        <strong>Clara Fontaine</strong>
+        <p>Journaliste spécialisée en désinformation et sciences sociales. Auteure de l'enquête « La fabrique du doute » (2024).</p>
+      </div>
+    </div>
+
+    <!-- Related Articles -->
+    <section class="related">
+      <div class="related-title">À lire aussi</div>
+      <div class="related-grid">
+
+        <div class="related-card">
+          <div class="related-thumb"></div>
+          <div class="related-label">Technologie</div>
+          <h3>5G, Wi-Fi, Linky : le vrai bilan des études sur les ondes électromagnétiques</h3>
+        </div>
+
+        <div class="related-card">
+          <div class="related-thumb" style="background:linear-gradient(135deg,#c8d8e0,#7a9cac)"></div>
+          <div class="related-label">Société</div>
+          <h3>Comment les algorithmes des réseaux sociaux amplifient les fausses informations</h3>
+        </div>
+
+        <div class="related-card">
+          <div class="related-thumb" style="background:linear-gradient(135deg,#e0d4c8,#ac8a7a)"></div>
+          <div class="related-label">Santé</div>
+          <h3>Électrohypersensibilité : une souffrance réelle, une cause toujours débattue</h3>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">Le<span style="color:var(--accent-alt)">.</span>Journal</div>
+    <p style="margin-bottom:14px;">© 2026 Le Journal — Tous droits réservés</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;">
+      <a href="#">Mentions légales</a>
+      <a href="#">CGU</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Contact</a>
+      <a href="#">Publicité</a>
+      <a href="#">À propos</a>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
     <meta name="description" content="Portfolio de Aubin Fringant, étudiant BTS SIO SLAM, développeur web spécialisé en applications PHP et JavaScript.">
     <meta name="author" content="Aubin Fringant">
     <link rel="icon" href="favicon.ico">
